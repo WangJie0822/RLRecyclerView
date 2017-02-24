@@ -3,7 +3,7 @@
 ## 介绍
 * 这是一个集成了下拉刷新、上拉加载更多，并且可以简单的添加头布局、脚布局的RecyclerView，
 * 使用方式和RecyclerView完全一致，不需要进行过多的设置。
-![](RMPIC\b.gif)
+![](https://github.com/Lorry0822/RLRecyclerView/blob/master/RMPIC/b.gif)
 
 ## 使用
 * 使用前，可以从Github上将目录下的 rlrecyclerview 下载下来，这是一个Android Library 项目，
