@@ -7,7 +7,7 @@
 
 ## 使用
 * 使用前，可以从Github上将目录下的 rlrecyclerview 下载下来，这是一个Android Library 项目，
-你可以直接在项目中引用。![](RMPIC\a.png)
+你可以直接在项目中引用。![](https://github.com/Lorry0822/RLRecyclerView/blob/master/RMPIC/a.png)
 
 
 		dependencies {
