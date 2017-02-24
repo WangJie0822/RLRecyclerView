@@ -12,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,11 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         rv = (RLRecyclerView) findViewById(R.id.rv);
+
+        mData = new ArrayList<>();
+        mData.addAll(getDate());
+        adapter = new MAdapter();
+        rv.setAdapter(adapter);
 
         getBundle();
 
@@ -112,12 +118,7 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-        mData = new ArrayList<>();
 
-        mData.addAll(getDate());
-
-        adapter = new MAdapter();
-        rv.setAdapter(adapter);
     }
 
     private void getBundle() {
@@ -141,16 +142,16 @@ public class Main2Activity extends AppCompatActivity {
 
         switch (intent.getStringExtra("mode")) {
             case MainActivity.MODE_BOTH:
-                rv.setRefreshType(RLRecyclerView.REFRESH_MODE_BOTH);
+                rv.setMode(RLRecyclerView.REFRESH_MODE_BOTH);
                 break;
             case MainActivity.MODE_REFRESH:
-                rv.setRefreshType(RLRecyclerView.REFRESH_MODE_REFRESH);
+                rv.setMode(RLRecyclerView.REFRESH_MODE_REFRESH);
                 break;
             case MainActivity.MODE_LOAD_MORE:
-                rv.setRefreshType(RLRecyclerView.REFRESH_MODE_LOADMORE);
+                rv.setMode(RLRecyclerView.REFRESH_MODE_LOADMORE);
                 break;
             case MainActivity.MODE_NONE:
-                rv.setRefreshType(RLRecyclerView.REFRESH_MODE_NONE);
+                rv.setMode(RLRecyclerView.REFRESH_MODE_NONE);
                 break;
         }
 
@@ -159,8 +160,8 @@ public class Main2Activity extends AppCompatActivity {
         if (intent.getBooleanExtra("header", false)) {
             final TextView header = new TextView(this);
             header.setText("Header View");
-//            header.setPadding(10, 10, 10, 10);
-//            header.setGravity(Gravity.CENTER);
+            header.setPadding(10, 10, 10, 10);
+            header.setGravity(Gravity.CENTER);
             header.setBackgroundResource(R.color.colorAccent);
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             header.setLayoutParams(params);
@@ -176,8 +177,8 @@ public class Main2Activity extends AppCompatActivity {
         if (intent.getBooleanExtra("footer", false)) {
             final TextView footer = new TextView(this);
             footer.setText("Footer View");
-//            footer.setPadding(10, 10, 10, 10);
-//            footer.setGravity(Gravity.CENTER);
+            footer.setPadding(10, 10, 10, 10);
+            footer.setGravity(Gravity.CENTER);
             footer.setBackgroundResource(R.color.colorAccent);
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             footer.setLayoutParams(params);

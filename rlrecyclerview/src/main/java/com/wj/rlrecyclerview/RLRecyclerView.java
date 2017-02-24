@@ -26,17 +26,17 @@ import java.util.ArrayList;
  */
 public class RLRecyclerView extends RecyclerView implements View.OnTouchListener {
 
-    /** 刷新模式-关闭 */
+    /** 功能模式-关闭 */
     public static final String REFRESH_MODE_NONE = "refresh_mode_none";
-    /** 刷新模式-全部开启 */
+    /** 功能模式-全部开启 */
     public static final String REFRESH_MODE_BOTH = "refresh_mode_both";
-    /** 刷新模式-下拉刷新 */
+    /** 功能模式-下拉刷新 */
     public static final String REFRESH_MODE_REFRESH = "refresh_mode_refresh";
-    /** 刷新模式-上拉加载更多 */
+    /** 功能模式-上拉加载更多 */
     public static final String REFRESH_MODE_LOADMORE = "refresh_mode_loadmore";
 
     /** 标记-刷新类型 */
-    private String refreshType;
+    private String mode;
     /** 标记-自动刷新 */
     private boolean autoRefresh;
 
@@ -114,9 +114,9 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
         // 获取判断为滚动之前的最大值
         touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 
-        if (TextUtils.isEmpty(refreshType)) {
+        if (TextUtils.isEmpty(mode)) {
             // 刷新、加载功能默认关闭
-            refreshType = REFRESH_MODE_NONE;
+            mode = REFRESH_MODE_NONE;
         }
 
         // 初始化头布局、脚布局集合
@@ -174,8 +174,8 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
 
         if (canLoadMore()) {
             if (SCROLL_STATE_IDLE == state) { // 滑动停止
-                if (mLoadMore.getStatus() == StatusView.STATUS_FINISH) {
-                    mLoadMore.setVisibility(VISIBLE);
+                mLoadMore.setVisibility(VISIBLE);
+                if (mLoadMore.getStatus() != StatusView.STATUS_TIPS) {
                     if (mLoadMoreLayoutParams == null) {
                         mLoadMoreLayoutParams = (LayoutParams) mLoadMore.getLayoutParams();
                         if (mLoadMoreLayoutParams != null && !isNotFirstTouch) {
@@ -185,6 +185,14 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
                             mLoadMore.setLayoutParams(mLoadMoreLayoutParams);
                             hideLoadMore();
                             isNotFirstTouch = true;
+                        }
+                    }
+                }else {
+                    if (mLoadMoreLayoutParams == null) {
+                        mLoadMoreLayoutParams = (LayoutParams) mLoadMore.getLayoutParams();
+                        if (mLoadMoreLayoutParams != null && !isNotFirstTouch) {
+                            mLoadMoreLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                            mLoadMore.setLayoutParams(mLoadMoreLayoutParams);
                         }
                     }
                 }
@@ -202,7 +210,7 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        if (!REFRESH_MODE_NONE.equals(refreshType)) { // 刷新、加载更多功能开启
+        if (!REFRESH_MODE_NONE.equals(mode)) { // 刷新、加载更多功能开启
 
             // 获取第一个及最后一个可视控件位置
             int[] pos = getVisiblePos();
@@ -400,12 +408,12 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
 
 
     /**
-     * 设置刷新类型
+     * 设置功能类型
      *
-     * @param refreshType 刷新类型
+     * @param mode 功能类型
      */
-    public void setRefreshType(String refreshType) {
-        this.refreshType = refreshType;
+    public void setMode(String mode) {
+        this.mode = mode;
         if (innerAdapter != null) {
             innerAdapter.notifyDataSetChanged();
         }
@@ -416,8 +424,8 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
      *
      * @return 刷新类型
      */
-    public String getRefreshType() {
-        return refreshType;
+    public String getMode() {
+        return mode;
     }
 
     /**
@@ -493,9 +501,8 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
      *
      * @return true：开启 false：关闭
      */
-
     private boolean canRefresh() {
-        return REFRESH_MODE_BOTH.equals(refreshType) || REFRESH_MODE_REFRESH.equals(refreshType);
+        return REFRESH_MODE_BOTH.equals(mode) || REFRESH_MODE_REFRESH.equals(mode);
     }
 
     /**
@@ -504,7 +511,7 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
      * @return true：开启 false：关闭
      */
     private boolean canLoadMore() {
-        return REFRESH_MODE_BOTH.equals(refreshType) || REFRESH_MODE_LOADMORE.equals(refreshType);
+        return REFRESH_MODE_BOTH.equals(mode) || REFRESH_MODE_LOADMORE.equals(mode);
     }
 
     /**
@@ -660,10 +667,10 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
         @Override
         public int getItemCount() {
 
-            if (REFRESH_MODE_BOTH.equals(refreshType)) {
+            if (REFRESH_MODE_BOTH.equals(mode)) {
                 return mAdapter.getItemCount() + mHeaders.size() + mFooters.size() + 2;
-            } else if (REFRESH_MODE_REFRESH.equals(refreshType)
-                    || REFRESH_MODE_LOADMORE.equals(refreshType)) {
+            } else if (REFRESH_MODE_REFRESH.equals(mode)
+                    || REFRESH_MODE_LOADMORE.equals(mode)) {
                 return mAdapter.getItemCount() + mHeaders.size() + mFooters.size() + 1;
             } else {
                 return mAdapter.getItemCount() + mHeaders.size() + mFooters.size();
@@ -880,6 +887,7 @@ public class RLRecyclerView extends RecyclerView implements View.OnTouchListener
         mLoadMore.onLoading();
         mLoadMoreLayoutParams = (LayoutParams) mLoadMore.getLayoutParams();
         mLoadMoreLayoutParams.bottomMargin = 0;
+        mLoadMoreLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         mLoadMore.setLayoutParams(mLoadMoreLayoutParams);
 
         new Handler().postDelayed(new Runnable() {

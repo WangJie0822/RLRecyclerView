@@ -32,12 +32,15 @@ class RLRefreshView extends StatusView {
 
     @Override
     protected int setLayout() {
+        // TODO 在这里设置加载更多控件布局id
         return R.layout.layout_refresh;
     }
 
     @Override
     public void onLoading() {
         super.onLoading();
+
+        // TODO 在这里设置正在加载效果
 
         tv.setText("正在刷新");
         iv.setImageResource(R.drawable.loading);
@@ -47,6 +50,8 @@ class RLRefreshView extends StatusView {
     @Override
     public void onFinish() {
         super.onFinish();
+
+        // TODO 在这里设置加载完成后效果
 
         tv.setText("刷新完成");
         Drawable drawable = iv.getDrawable();
@@ -58,6 +63,8 @@ class RLRefreshView extends StatusView {
     @Override
     public void onPulling(int percent) {
         super.onPulling(percent);
+
+        // TODO 在这里设置下拉过程效果
 
         tv.setText("下拉可以刷新");
         if (percent < 20) {
@@ -77,6 +84,8 @@ class RLRefreshView extends StatusView {
     @Override
     public void onLoosen() {
         super.onLoosen();
+
+        // TODO 在这里设置释放加载效果
 
         tv.setText("释放刷新");
     }

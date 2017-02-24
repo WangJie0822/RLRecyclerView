@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 
 /**
@@ -28,8 +27,6 @@ abstract class StatusView extends FrameLayout {
     /** 标记-控件状态 */
     protected int status;
 
-    protected View mRootView;
-
     StatusView(Context context) {
         this(context, null);
     }
@@ -42,7 +39,7 @@ abstract class StatusView extends FrameLayout {
         super(context, attrs, defStyleAttr);
 
         // 加载布局
-        mRootView = LayoutInflater.from(context).inflate(setLayout(), this, true);
+        LayoutInflater.from(context).inflate(setLayout(), this, true);
     }
 
     /**
@@ -70,7 +67,7 @@ abstract class StatusView extends FrameLayout {
     /**
      * 下拉状态
      *
-     * @param percent 下拉进度 单位：百分比
+     * @param percent 下拉进度 <p>单位：百分比</p> <p>范围：0~100</p>
      */
     public void onPulling(int percent) {
         setStatus(STATUS_PULLING);

@@ -32,12 +32,15 @@ class RLLoadMoreView extends StatusView {
 
     @Override
     protected int setLayout() {
+        // TODO 在这里设置加载更多控件布局id
         return R.layout.layout_load_more;
     }
 
     @Override
     public void onLoading() {
         super.onLoading();
+
+        // TODO 在这里设置正在加载效果
 
         iv.setVisibility(VISIBLE);
 
@@ -49,6 +52,8 @@ class RLLoadMoreView extends StatusView {
     @Override
     public void onFinish() {
         super.onFinish();
+
+        // TODO 在这里设置加载完成后效果
 
         iv.setVisibility(VISIBLE);
 
@@ -63,6 +68,8 @@ class RLLoadMoreView extends StatusView {
     @Override
     public void onPulling(int percent) {
         super.onPulling(percent);
+
+        // TODO 在这里设置下拉过程效果
 
         iv.setVisibility(VISIBLE);
 
@@ -85,6 +92,8 @@ class RLLoadMoreView extends StatusView {
     public void onLoosen() {
         super.onLoosen();
 
+        // TODO 在这里设置释放加载效果
+
         iv.setVisibility(VISIBLE);
 
         tv.setText("释放加载更多");
@@ -93,6 +102,8 @@ class RLLoadMoreView extends StatusView {
     @Override
     public void onTips() {
         super.onTips();
+
+        // TODO 在这里设置提示信息
 
         iv.setVisibility(GONE);
         tv.setText("点击加载更多");
