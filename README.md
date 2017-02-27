@@ -73,7 +73,7 @@
 		     */
 		    public void clearFooters()
 		
-		   /**
+		    /**
 		     * 设置刷新事件监听
 		     *
 		     * @param listener 刷新事件监听接口{@link OnRefreshListener}
@@ -141,7 +141,7 @@
 ## 总结
 
 * 像这样的控件现在其实有很多，但是我还是选择自己写了一个，当然了，其中肯定有许多我没有发现的，开发中也有很多的困扰，
-* 其中就借鉴了郭霖大神的[ Android下拉刷新完全解析，教你如何一分钟实现下拉刷新功能](http://blog.csdn.net/guolin_blog/article/details/9255575)，以及 XRecyclerView 的部分源码，
-* 感谢各位大神的无私分享，在开发的过程中我学到了很多。如果你在使用中发现什么问题，请告诉我，感谢大家的使用和指正。
+* 其中就借鉴了郭霖大大的[ Android下拉刷新完全解析，教你如何一分钟实现下拉刷新功能](http://blog.csdn.net/guolin_blog/article/details/9255575)，以及 [XRecyclerView](https://github.com/jianghejie/XRecyclerView) 的部分源码，
+* 感谢各位前辈的无私分享，在开发的过程中我学到了很多。如果你在使用中发现什么问题，请告诉我，感谢大家的使用和指正。
 
 
